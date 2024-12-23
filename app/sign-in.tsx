@@ -1,11 +1,30 @@
-import { View, Text, ScrollView, Image, TouchableOpacity } from "react-native";
+import { View, Text, ScrollView, Image, TouchableOpacity, Alert } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import images from "@/constants/images";
 import icons from "@/constants/icons";
+import { login } from "@/lib/appwrite";
+import { useGlobalContext } from "@/lib/global-provider";
+import { Redirect } from "expo-router";
 
 const SignIn = () => {
-  const handleLogin = () => {};
+
+    const { refetch, loading, isLoggedIn } = useGlobalContext();
+
+    if(!loading && isLoggedIn){
+        return <Redirect href="/" />;
+    }
+
+  const handleLogin = async () => {
+    const result = await login();
+    
+    if(result){
+        // console.log("Login Success");
+        refetch();
+    } else {
+        Alert.alert('Error', 'Failed to login');
+    }
+  };
 
   return (
     <SafeAreaView className="bg-white h-full">
@@ -26,7 +45,7 @@ const SignIn = () => {
             <Text className="text-primary-300">Your Dream Home</Text>
           </Text>
 
-          <Text className="text-lg font-rubik text-blue-200 text-center mt-6">
+          <Text className="text-lg font-rubik text-black-100 text-center mt-6">
             Login to Real-Estate to continue
           </Text>
 
