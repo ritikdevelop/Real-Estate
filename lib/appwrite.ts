@@ -18,7 +18,6 @@ export const config = {
 };
 
 export const client = new Client();
-
 client
   .setEndpoint(config.endpoint!)
   .setProject(config.projectId!)
