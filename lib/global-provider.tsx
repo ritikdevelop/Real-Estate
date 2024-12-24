@@ -5,10 +5,10 @@ import { useAppwrite } from "./useAppwrite";
 import { Redirect } from "expo-router";
 
 interface GlobalContextType {
-  isLoggedIn: boolean;
+  isLogged: boolean;
   user: User | null;
   loading: boolean;
-  refetch: () => void;
+  refetch: (newParams: Record<string, string | number>) => Promise<void>;
 }
 
 interface User {
